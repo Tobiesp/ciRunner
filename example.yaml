@@ -1,0 +1,130 @@
+name: bar
+run-name: help
+on:
+  push:
+premissions: 
+  actions: read
+  checks: read
+  contents: read
+  deployments: read
+  issues: read
+  discussions: read
+  packages: read
+  pages: read
+  pull-requests: read
+  repository-projects: read
+  security-events: read
+  statuses: read
+env:
+  TEST_1: test
+defaults:
+  run:
+    shell: bash
+    working-directory: ./current
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  some-id:
+    name: job name
+    permissions:
+      actions: read
+      checks: read
+      contents: read
+      deployments: read
+      issues: read
+      discussions: read
+      packages: read
+      pages: read
+      pull-requests: read
+      repository-projects: read
+      security-events: read
+      statuses: read
+    needs:
+      - job1
+      - job2
+    if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
+    runs-on: ubuntu-latest
+    environment:
+      name: production_environment
+      url: https://github.com
+    concurrency:
+      group: example-group
+      cancel-in-progress: true
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
+      output2: ${{ steps.step2.outputs.test }}
+    env:
+      FIRST_NAME: Mona
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./scripts
+    steps:
+      - id: test_id
+        name: test name
+        uses: some/action
+        run: |
+          echo "hello world"
+          echo "Bye World"
+        working-directory: ./temp
+        shell: bash
+        with:
+          arg_1: arg
+          arg_2: arg
+        env:
+          name: mona
+        continue-on-error: true
+        time-out: 60
+    time-out: 60
+    strategy:
+      matrix:
+        some_value: [a, b]
+        other_value: [c, d]
+        include:
+          - some_value: a
+          - some_value: b
+          - other_value: c
+          - other_value: d
+        exclude:
+          - some_value: a
+            other_value: c
+      fail-fast: true
+      max-parallel: 2
+    continue-on-error: true
+    container: 
+      image: bla bla bla
+      credentials:
+        username: test
+        password: pass
+      env:
+        test_env: test
+      ports: [8080, 8081]
+      volumes:
+        - test/1
+        - test/2
+      options:
+        - "--option-1"
+        - "--option-2"
+    services:
+      some_service:
+        image: some/image
+        credentials:
+          username: user
+          password: pass
+        env:
+          TEST_ENV: env
+        ports: [8080, 8081]
+        volumes:
+          - volume_1
+          - volume_2
+        options:
+          - "--option-1"
+          - "--option_2"
+    uses: 
+    with:
+      some_arg: arg
+      other_arg: arg
+    secrets:
+      secret_1: secret
+      secret_2: secret
