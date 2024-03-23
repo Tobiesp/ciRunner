@@ -1,18 +1,35 @@
 package config
 
 type Workflow struct {
-	Name        string            `yaml:"name"`
-	RunName     string            `yaml:"run-name"`
-	On          []Trigger         `yaml:"on"`
-	Permissions Permissions       `yaml:"permissions"`
-	Env         map[string]string `yaml:"env"`
-	Defaults    Defaults          `yaml:"defaults"`
-	Concurrency Concurrency       `yaml:"concurrency"`
-	Jobs        map[string]Job    `yaml:"jobs"`
+	Name        string               `yaml:"name"`
+	RunName     string               `yaml:"run-name"`
+	On          map[string]OnTrigger `yaml:"on"`
+	Permissions Permissions          `yaml:"permissions"`
+	Env         map[string]string    `yaml:"env"`
+	Defaults    Defaults             `yaml:"defaults"`
+	Concurrency Concurrency          `yaml:"concurrency"`
+	Jobs        map[string]Job       `yaml:"jobs"`
 }
 
-type Trigger struct {
-	Push string `yaml:"push"`
+type OnTrigger struct {
+	Types          []string                  `yaml:"types"`
+	Branches       []string                  `yaml:"branches"`
+	BranchesIgnore []string                  `yaml:"braches-ignore"`
+	Paths          []string                  `yaml:"paths"`
+	PathsIgnore    []string                  `yaml:"paths-ignore"`
+	Tags           []string                  `yaml:"tags"`
+	TagsIgnore     []string                  `yaml:"tags-ignore"`
+	Cron           string                    `yaml:"cron"`
+	Inputs         map[string]WorkflowInputs `yaml:"inputs"`
+	Workflows      []string                  `yaml:"workflows"`
+}
+
+type WorkflowInputs struct {
+	Description string   `yaml:"description"`
+	Required    bool     `yaml:"required"`
+	Default     string   `yaml:"default"`
+	Type        string   `yaml:"type"`
+	Options     []string `yaml:"options"`
 }
 
 type Permissions struct {
