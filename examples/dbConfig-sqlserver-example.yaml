@@ -1,0 +1,7 @@
+type: postgresql
+# sqlserver://gorm:LoremIpsum86@localhost:9930?database=gorm
+username: root
+password: root
+server: localhost
+port: 9930
+db-name: jwt_demo

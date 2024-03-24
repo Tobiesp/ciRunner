@@ -8,3 +8,5 @@ port: 3306
 db-name: jwt_demo
 options:
   - parseTime=true
+  - charset=utf8mb4
+  - loc=local

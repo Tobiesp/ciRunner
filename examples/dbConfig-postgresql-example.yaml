@@ -1,0 +1,10 @@
+type: postgresql
+# host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai
+username: root
+password: root
+server: localhost
+port: 9920
+db-name: jwt_demo
+options:
+  - sslmode=disable
+  - TimeZone=Asia/Shanghai

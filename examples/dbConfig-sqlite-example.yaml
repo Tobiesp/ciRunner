@@ -1,2 +1,2 @@
 type: sqlite
-file-path: ./node.db
+file-path: ./data/node.db
