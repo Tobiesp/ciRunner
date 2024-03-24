@@ -1,18 +1,18 @@
 package config
 
-type Action struct {
+type Gitter struct {
 	Name        string                 `yaml:"name"`
 	Author      string                 `yaml:"author"`
 	Description string                 `yaml:"description"`
-	Inputs      map[string]ActionInput `yaml:"inputs"`
+	Inputs      map[string]GitterInput `yaml:"inputs"`
 	Outputs     map[string]struct {
 		Description string `yaml:"description"`
 		Value       string `yaml:"value"`
 	} `yaml:"outputs"`
-	Runs ActionRuns `yaml:"runs"`
+	Runs GitterRuns `yaml:"runs"`
 }
 
-type ActionRuns struct {
+type GitterRuns struct {
 	Using          string            `yaml:"using"`
 	Pre            string            `yaml:"pre"`
 	PreIf          string            `yaml:"pre-if"`
@@ -32,7 +32,7 @@ type ActionRuns struct {
 	} `yaml:"branding"`
 }
 
-type ActionInput struct {
+type GitterInput struct {
 	Description       string `yaml:"description"`
 	Required          bool   `yaml:"required"`
 	Default           string `yaml:"default"`

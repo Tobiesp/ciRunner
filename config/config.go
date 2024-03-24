@@ -33,7 +33,7 @@ func ProcessWorkflowYAML(yamlData string) (*Workflow, error) {
 	return &workflow, nil
 }
 
-func ProcessActionYAMLFile(filePath string) (*Action, error) {
+func ProcessGitterYAMLFile(filePath string) (*Gitter, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return nil, errors.New("yamlFile.Get err " + err.Error())
@@ -42,18 +42,43 @@ func ProcessActionYAMLFile(filePath string) (*Action, error) {
 	if err != nil {
 		return nil, errors.New("yamlFile.Get err " + err.Error())
 	}
-	workflow, err := ProcessActionYAML(string(yamlFile))
+	workflow, err := ProcessGitterYAML(string(yamlFile))
 	if err != nil {
 		return nil, errors.New(err.Error())
 	}
 	return workflow, nil
 }
 
-func ProcessActionYAML(yamlData string) (*Action, error) {
-	var action Action
-	err := yaml.Unmarshal([]byte(yamlData), &action)
+func ProcessGitterYAML(yamlData string) (*Gitter, error) {
+	var gitter Gitter
+	err := yaml.Unmarshal([]byte(yamlData), &gitter)
 	if err != nil {
 		return nil, errors.New("Unmarshal: " + err.Error())
 	}
-	return &action, nil
+	return &gitter, nil
+}
+
+func ProcessDBConfigYAMLFile(filePath string) (*DBConfig, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return nil, errors.New("yamlFile.Get err " + err.Error())
+	}
+	yamlFile, err := io.ReadAll(file)
+	if err != nil {
+		return nil, errors.New("yamlFile.Get err " + err.Error())
+	}
+	workflow, err := ProcessDBConfigYAML(string(yamlFile))
+	if err != nil {
+		return nil, errors.New(err.Error())
+	}
+	return workflow, nil
+}
+
+func ProcessDBConfigYAML(yamlData string) (*DBConfig, error) {
+	var dbconfig DBConfig
+	err := yaml.Unmarshal([]byte(yamlData), &dbconfig)
+	if err != nil {
+		return nil, errors.New("Unmarshal: " + err.Error())
+	}
+	return &dbconfig, nil
 }
